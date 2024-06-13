@@ -23,20 +23,19 @@ class TestGame(TestCase):
         self.assert_raise_value_error_with_invalid_argument("12s")
         self.assert_raise_value_error_with_invalid_argument("121")
 
-    def test_return_solve_result_if_matched_number(self):
-        self.game.question = "123"
-        ret: GameResult = self.game.guess("123")
-
+    def assert_matched_number(self, ret, solved, strikes, balls):
         self.assertIsNotNone(ret)
-        self.assertTrue(ret.solved)
-        self.assertEqual(3, ret.strikes)
-        self.assertEqual(0, ret.balls)
+        self.assertEqual(solved, ret.solved)
+        self.assertEqual(strikes, ret.strikes)
+        self.assertEqual(balls, ret.balls)
+
+    def generate_question(self, answer):
+        self.game.question = answer
+
+    def test_return_solve_result_if_matched_number(self):
+        self.generate_question("123")
+        self.assert_matched_number(self.game.guess("123"), True, 3, 0)
 
     def test_return_solve_result_if_unmatched_number(self):
-        self.game.question = "123"
-        ret: GameResult = self.game.guess("456")
-
-        self.assertIsNotNone(ret)
-        self.assertFalse(ret.solved)
-        self.assertEqual(0, ret.strikes)
-        self.assertEqual(0, ret.balls)
+        self.generate_question("123")
+        self.assert_matched_number(self.game.guess("456"), False, 0, 0)
