@@ -20,3 +20,4 @@ class TestGame(TestCase):
         self.assert_raise_value_error_with_invalid_argument("12")
         self.assert_raise_value_error_with_invalid_argument("1234")
         self.assert_raise_value_error_with_invalid_argument("12s")
+        self.assert_raise_value_error_with_invalid_argument("121")

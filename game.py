@@ -9,3 +9,6 @@ class Game:
         for number in guess_number:
             if not ord('0') <= ord(number) <= ord('9'):
                 raise ValueError
+
+        if len(set(guess_number)) != 3:
+            raise ValueError
