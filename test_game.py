@@ -11,3 +11,9 @@ class TestGame(TestCase):
     def test_exception_when_input_is_none(self):
         with self.assertRaises(TypeError):
             self.game.guess(None)
+
+    def test_exception_when_input_length_mismatch(self):
+        with self.assertRaises(ValueError):
+            self.game.guess("12")
+
+
